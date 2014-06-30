@@ -8,41 +8,17 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 	//"fmt"
-	"bytes"
-	. "github.com/katasonov/asycache"
 )
 
-//var templates = template.Must(template.ParseGlob("html/*"))
-var g_index_templ = template.New("base")
-var g_captcha_templ = template.New("base")
-var g_url_templ = template.New("base")
-var g_email_templ = template.New("base")
-
-//var g_index_templ = template.New("index").ParseFiles("html/base.html")
-
 func main() {
-	g_index_templ, _ = g_index_templ.ParseFiles("html/index.html")
-	g_index_templ, _ = g_index_templ.ParseFiles("html/base.html")
-
-	g_captcha_templ, _ = g_captcha_templ.ParseFiles("html/captcha.html")
-	g_captcha_templ, _ = g_captcha_templ.ParseFiles("html/base.html")
-
-	g_url_templ, _ = g_url_templ.ParseFiles("html/url.html")
-	g_url_templ, _ = g_url_templ.ParseFiles("html/base.html")
-
-	g_email_templ, _ = g_email_templ.ParseFiles("html/email.html")
-	g_email_templ, _ = g_email_templ.ParseFiles("html/base.html")
 
 	g_conn_string = "hidemyemail:Avk241083@/hidemyemaildb"
-
-	c := MakeCache(10 * time.Minute)
 
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.HandleFunc("/add",
 		func(w http.ResponseWriter, r *http.Request) {
-			handleAdd(w, r, c)
+			handleAdd(w, r)
 		})
 	http.HandleFunc("/get",
 		func(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +31,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func handleAdd(w http.ResponseWriter, r *http.Request, c Cache) {
+func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	values := r.URL.Query()
@@ -139,32 +115,4 @@ func writeHtmlWithValues(w http.ResponseWriter, file string, data interface{}) {
 	if err = tmpl.Execute(w, &Base{Content: data}); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-
-}
-
-func parseTemplate(file string, data interface{}) ([]byte, error) {
-	buf := new(bytes.Buffer)
-	//t := template.New(file).Funcs(funcMaps)
-	t := template.New(file)
-	baseBytes, err := ioutil.ReadFile("html/base.html")
-
-	if err != nil {
-		return nil, err
-	}
-	t, err = t.Parse(string(baseBytes))
-	if err != nil {
-		return nil, err
-	}
-
-	t, err = t.ParseFiles("html/" + file)
-	if err != nil {
-		return nil, err
-	}
-	err = t.Execute(buf, data)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
 }

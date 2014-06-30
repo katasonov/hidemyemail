@@ -62,23 +62,30 @@
 		    vertical-align: middle;
 		}
 
-
+        footer {
+            position : absolute;
+            bottom : 0;
+            width: 100%;
+            text-align: center;
+            height : 30px;
+            margin-top : 30px;
+        }
     </style>
 </head>
-<body style="margin:0;padding:0;background-color:#858585">
+<body style="margin:0;padding:0;background-color:#858585;height:100%">
 	<div class="ext-box" style="background-color: #272822;">
-		<div class="int-box" style="height:38px;">
-			<img src="images/logo.png" style="padding-left:8px;"/>
+		<div class="int-box" style="height:38px;color:#eeffff;">
+			<img src="images/logo.png" style="padding-left:8px;"/> Не пишите ваш email в открытом виде, защитите его
 		</div>
 	</div>
-	<div class="ext-box" style="height:100%">
-		<div class="int-box" style="height:200px;text-align:center;">
+	<div class="ext-box" style="padding-top:10%;">
+		<div class="int-box" style="text-align:center;">
 			{{template "content" .Content}}
 		</div>
 	</div>
 
       <footer>
-        &copy; Copyright 2014 by Alexander Katasonov.
+        &copy; Copyright 2014 by Alexander Katasonov
       </footer>	
 
 </body>
