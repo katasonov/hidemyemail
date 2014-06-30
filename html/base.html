@@ -1,0 +1,86 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+		div.ext-box { display: table; width:100%;}
+		div.int-box { display: table-cell; width:100%;vertical-align: middle; margin:0; padding:0;}
+
+		input {
+		    background: none repeat scroll 0 0 #fff;
+		    border: 1px solid #d9d9d9;
+		    border-radius: 0;
+		    box-shadow: none;
+		    box-sizing: border-box;
+		    //display: block;
+		    font-family: verdana,sans-serif;
+		    font-size: 12px;
+		    line-height: 18px;
+		    margin: 0;
+		    outline: medium none;
+		    overflow: hidden;
+		    padding: 5px;
+		    text-shadow: none;
+		    width: 40%;
+		}
+
+		p {
+		    color: #F2D324;
+		    font-family: arial,sans-serif;
+		    font-size: 16px;
+		    font-weight: bold;			
+		}
+
+		button {
+
+		    background-color: #eee !important;
+		    background-image: -moz-linear-gradient(center top , #eee, #e1e1e1);
+		    background-repeat: repeat-x;
+		    border-color: #d9d8d8 #cccbcb #aeaeae;
+		    border-image: none;
+		    border-radius: 6px;
+		    border-style: solid;
+		    border-width: 1px;
+		    box-shadow: 0 1px 0 #fff inset;
+		    color: #282828 !important;
+		    cursor: pointer;
+		    display: inline-block;
+		    font-family: arial,sans-serif;
+		    font-size: 16px;
+		    font-weight: normal;
+		    height: 32px;
+		    line-height: 26px;
+		    margin: 0;
+		    padding: 0 10px;
+		    margin-top: 8px;
+		    text-decoration: none;
+		    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+		    transition-duration: 0.2s;
+		    vertical-align: middle;
+		}
+
+
+    </style>
+</head>
+<body style="margin:0;padding:0;background-color:#858585">
+	<div class="ext-box" style="background-color: #272822;">
+		<div class="int-box" style="height:38px;">
+			<img src="images/logo.png" style="padding-left:8px;"/>
+		</div>
+	</div>
+	<div class="ext-box" style="height:100%">
+		<div class="int-box" style="height:200px;text-align:center;">
+			{{template "content" .Content}}
+		</div>
+	</div>
+
+      <footer>
+        &copy; Copyright 2014 by Alexander Katasonov.
+      </footer>	
+
+</body>
+</html>
+{{end}}

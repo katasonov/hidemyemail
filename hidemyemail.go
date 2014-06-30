@@ -5,51 +5,81 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
-	. "net/http"
+	"net/http"
 	"net/url"
 	"strings"
 	"time"
 	//"fmt"
+	"bytes"
 	. "github.com/katasonov/asycache"
 )
 
+//var templates = template.Must(template.ParseGlob("html/*"))
+var g_index_templ = template.New("base")
+var g_captcha_templ = template.New("base")
+var g_url_templ = template.New("base")
+var g_email_templ = template.New("base")
+
+//var g_index_templ = template.New("index").ParseFiles("html/base.html")
+
 func main() {
+	g_index_templ, _ = g_index_templ.ParseFiles("html/index.html")
+	g_index_templ, _ = g_index_templ.ParseFiles("html/base.html")
+
+	g_captcha_templ, _ = g_captcha_templ.ParseFiles("html/captcha.html")
+	g_captcha_templ, _ = g_captcha_templ.ParseFiles("html/base.html")
+
+	g_url_templ, _ = g_url_templ.ParseFiles("html/url.html")
+	g_url_templ, _ = g_url_templ.ParseFiles("html/base.html")
+
+	g_email_templ, _ = g_email_templ.ParseFiles("html/email.html")
+	g_email_templ, _ = g_email_templ.ParseFiles("html/base.html")
+
+	g_conn_string = "hidemyemail:Avk241083@/hidemyemaildb"
 
 	c := MakeCache(10 * time.Minute)
 
-	HandleFunc("/add",
-		func(w ResponseWriter, r *Request) {
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
+	http.HandleFunc("/add",
+		func(w http.ResponseWriter, r *http.Request) {
 			handleAdd(w, r, c)
 		})
-	HandleFunc("/get",
-		func(w ResponseWriter, r *Request) {
+	http.HandleFunc("/get",
+		func(w http.ResponseWriter, r *http.Request) {
 			handleGet(w, r)
 		})
-	HandleFunc("/",
-		func(w ResponseWriter, r *Request) {
+	http.HandleFunc("/",
+		func(w http.ResponseWriter, r *http.Request) {
 			handleGetCaptcha(w, r)
 		})
-	log.Fatal(ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func handleAdd(w ResponseWriter, r *Request, c Cache) {
-	w.WriteHeader(StatusOK)
+func handleAdd(w http.ResponseWriter, r *http.Request, c Cache) {
+	w.WriteHeader(http.StatusOK)
 
 	values := r.URL.Query()
-	err := addEmailToDatabase(NewLen(8), values.Get("email"))
+	email := values.Get("email")
+	uid, err := getUidByEmailFromDatabase(email)
+	if err == nil {
+		writeHtmlWithValues(w, "url.html", &struct{ Key string }{uid})
+		return
+	}
+	uid = NewLen(8)
+	err = addEmailToDatabase(uid, email)
 	if err != nil {
 		w.Write([]byte("Db Error occurred: " + err.Error()))
 		return
 	}
-	w.Write([]byte("OK"))
+	writeHtmlWithValues(w, "url.html", &struct{ Key string }{uid})
 }
 
-func handleGet(w ResponseWriter, r *Request) {
-	w.WriteHeader(StatusOK)
+func handleGet(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 	recaptcha_challenge_field := r.FormValue("recaptcha_challenge_field")
 	recaptcha_response_field := r.FormValue("recaptcha_response_field")
 	uid := r.FormValue("email_uid")
-	resp, err := PostForm(
+	resp, err := http.PostForm(
 		"http://www.google.com/recaptcha/api/verify",
 		url.Values{
 			"privatekey": {"6LdUtvUSAAAAAEuQtd3u6vaSeXVNZV2k9A1R_XG7"},
@@ -79,8 +109,8 @@ func handleGet(w ResponseWriter, r *Request) {
 	writeHtmlWithValues(w, "email.html", &struct{ Email string }{email})
 }
 
-func handleGetCaptcha(w ResponseWriter, r *Request) {
-	w.WriteHeader(StatusOK)
+func handleGetCaptcha(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 	key := strings.TrimLeft(r.URL.Path, "/")
 	if key == "" {
 		//index page
@@ -90,25 +120,51 @@ func handleGetCaptcha(w ResponseWriter, r *Request) {
 	writeHtmlWithValues(w, "captcha.html", &struct{ Key string }{key})
 }
 
-func writeHtmlWithValues(w ResponseWriter, html_file string, data interface{}) {
-	t, err := template.ParseFiles("html/" + html_file)
-	if err != nil {
-		w.Write([]byte(err.Error()))
-	} else {
-		t.Execute(w, &data)
+func writeHtmlWithValues(w http.ResponseWriter, file string, data interface{}) {
+	//err := templates.ExecuteTemplate(w, html_file, &data)
+	//g_index_templ.Parse(w, "html/index.html")
+	//err := t.Execute(w, data)
+	//bval, err := parseTemplate(file, data)
+	tmpl := template.New("base")
+	var err error
+	if tmpl, err = tmpl.ParseFiles("html/base.html"); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+	if tmpl, err = tmpl.ParseFiles("html/" + file); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	type Base struct {
+		Content interface{}
+	}
+	if err = tmpl.Execute(w, &Base{Content: data}); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
 }
 
-/*
-func getEmailFromDatabase(key string) (*CacheEntity, bool){
-	con, err := sql.Open("mysql56", "hidemyemails:Avk241083@/hidemyemailsdb")
-	defer con.Close()
-	row := con.QueryRow("select data as email from email where uid=?", key)
-	entity := &CacheEntity{uid: key}
-	err = row.Scan(&entity.email)
+func parseTemplate(file string, data interface{}) ([]byte, error) {
+	buf := new(bytes.Buffer)
+	//t := template.New(file).Funcs(funcMaps)
+	t := template.New(file)
+	baseBytes, err := ioutil.ReadFile("html/base.html")
+
 	if err != nil {
-		return nil, false
+		return nil, err
 	}
-	return entity, true
+	t, err = t.Parse(string(baseBytes))
+	if err != nil {
+		return nil, err
+	}
+
+	t, err = t.ParseFiles("html/" + file)
+	if err != nil {
+		return nil, err
+	}
+	err = t.Execute(buf, data)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
-*/

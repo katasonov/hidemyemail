@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{{define "content"}}
     <form action = "add" method="GET">
-        <textarea name="text" rows="5" cols="40" style="width:400px; height:300px"> </textarea>
+    	<p>Введите e-mail, для которого хотите получить защищенную ссылку.</p>
+        <input name="email" type="email" /><br/>
         <button type="submit">Отправить</button>
     </form>
-
-</body>
-</html>
+{{end}}
