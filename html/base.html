@@ -7,7 +7,12 @@
     <style type="text/css">
 
 		div.ext-box { display: table; width:100%;}
-		div.int-box { display: table-cell; width:100%;vertical-align: middle; margin:0; padding:0;}
+		div.int-box { display: table-cell; vertical-align: middle; margin:0; padding:0;}
+
+        a.logo-text {
+            text-decoration: none;
+            color:#c8c8c8;
+        }
 
 		input {
 		    background: none repeat scroll 0 0 #fff;
@@ -17,8 +22,8 @@
 		    box-sizing: border-box;
 		    //display: block;
 		    font-family: verdana,sans-serif;
-		    font-size: 12px;
-		    line-height: 18px;
+		    font-size: 16px;
+		    line-height: 28px;
 		    margin: 0;
 		    outline: medium none;
 		    overflow: hidden;
@@ -30,9 +35,21 @@
 		p {
 		    color: #F2D324;
 		    font-family: arial,sans-serif;
-		    font-size: 16px;
+		    font-size: 18px;
 		    font-weight: bold;			
 		}
+
+        p.error {
+            color: #C10030;
+            font-family: arial,sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        a {
+            font-family: verdana,sans-serif;
+            font-size: 16px;
+        }
 
 		button {
 
@@ -74,11 +91,16 @@
 </head>
 <body style="margin:0;padding:0;background-color:#858585;height:100%">
 	<div class="ext-box" style="background-color: #272822;">
-		<div class="int-box" style="height:38px;color:#eeffff;">
-			<img src="images/logo.png" style="padding-left:8px;"/> Не пишите ваш email в открытом виде, защитите его
+		<div class="int-box" style="height:38px;width:150px;">
+			<a href="/"><img src="images/logo.png" style="padding-left:8px;"/></a>
 		</div>
+		<div class="int-box" style="padding-left:14px">
+			<a href="/" class="logo-text">Надежная защита вашего E-mail при публикации на форумах, блогах, досках объявлений и других публичных местах</a>
+		</div>
+		<div style="clear:both;"></div>
+		
 	</div>
-	<div class="ext-box" style="padding-top:10%;">
+	<div class="ext-box" style="padding-top:3%;">
 		<div class="int-box" style="text-align:center;">
 			{{template "content" .Content}}
 		</div>

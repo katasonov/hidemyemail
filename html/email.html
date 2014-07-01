@@ -1,3 +1,6 @@
 {{define "content"}}
-    <input type="email" value="{{.Email}}"/>
+    <p>Контактный E-mail для копирования</p>
+    <input type="email" value="{{.Email}}"/><br/>
+    <p>или как ссылка</p>
+    <a href="mailto:{{.Email}}">{{.Email}}</a>
 {{end}}
