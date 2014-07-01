@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 
-	g_conn_string = g_config.DbUser + ":" + g_config.DbPassword + "@/" + g_config.DbName
+	g_conn_string = g_config.DbConnectionString
 
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.HandleFunc("/add",

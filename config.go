@@ -8,9 +8,7 @@ import (
 type Configuration struct {
 	Host    string
 	Port	string
-	DbUser	string
-	DbPassword string
-	DbName	string
+	DbConnectionString string
 }
 
 var g_config Configuration
