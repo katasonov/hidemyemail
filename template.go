@@ -28,13 +28,16 @@ func WriteEmailPage(w http.ResponseWriter, email string) {
 }
 
 func WriteSecureLinkPage(w http.ResponseWriter, uid string) {
-	writeHtmlWithValues(w, "url.html", &struct{ Key string }{uid})
+	host := "http://" + g_config.Host
+	if g_config.Port != "80" {
+		host = host + ":" + g_config.Port
+	}
+	writeHtmlWithValues(w, "url.html", &struct{ Host string; Key string }{host, uid})
 }
 
 func WriteEmailNotFoundPage(w http.ResponseWriter, uid string) {
 	writeHtmlWithValues(w, "emailnotfound.html", &struct{Key string}{uid})
 }
-
 
 func writeHtmlWithValues(w http.ResponseWriter, file string, data interface{}) {
 	tmpl := template.New("base")

@@ -11,7 +11,13 @@ import (
 
 func main() {
 
-	g_conn_string = "hidemyemail:Avk241083@/hidemyemaildb"
+	err := LoadConfig()
+	if err != nil {
+		log.Fatal("Could not load config file hidemyemail.cfg")
+		return
+	}
+
+	g_conn_string = g_config.DbUser + ":" + g_config.DbPassword + "@/" + g_config.DbName
 
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.HandleFunc("/add",
@@ -26,7 +32,7 @@ func main() {
 		func(w http.ResponseWriter, r *http.Request) {
 			handleGetCaptcha(w, r)
 		})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+g_config.Port, nil))
 }
 
 func handleAdd(w http.ResponseWriter, r *http.Request) {
@@ -57,6 +63,7 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Db Error occurred: " + err.Error()))
 		return
 	}
+
 	WriteSecureLinkPage(w, uid)
 }
 

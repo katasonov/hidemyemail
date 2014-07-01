@@ -1,4 +1,4 @@
 {{define "content"}}
     <p>Уникальная защитная ссылка для вашего E-mail</p>
-    <input  type="url" name="access_url" value="http://localhost:80/{{.Key}}"/>
+    <input  type="url" name="access_url" value="{{.Host}}/{{.Key}}"/>
 {{end}}
