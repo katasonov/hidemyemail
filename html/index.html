@@ -2,7 +2,7 @@
     <form action = "add" method="GET">
     	<p>Введите e-mail, для которого желаете получить уникальную защищенную ссылку.</p>
         {{if .EmailError}}<p class="error">* Введите корректный e-mail адресс</p>{{end}}
-        <input name="email" type="email" placeholder="Ваш e-mail"/><br/>
+        <input name="email" type="email" placeholder="Ваш e-mail" value="{{.Email}}"/><br/>
         {{if .CaptchaError}}<p class="error">* Введите правильный код с картинки </p>{{end}}
         <div style="display:inline-block;padding-top:14px;padding-bottom:14px;">
         <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LdUtvUSAAAAAFHAD6cT4iBwBh_8HPHXYGb2hgQf">

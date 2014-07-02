@@ -40,16 +40,16 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 	email :=  r.FormValue("email")
 	matched, err := regexp.MatchString("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email)
 	if !matched {
-		WriteIndexPage(w, true, false)
+		WriteIndexPage(w, true, false, email)
 		return
 	}
 	ok, err := CheckCaptcha(r)
 	if err != nil {
-		WriteIndexPage(w, false, true)
+		WriteIndexPage(w, false, true, email)
 		return
 	}
 	if !ok {
-		WriteIndexPage(w, false, true)
+		WriteIndexPage(w, false, true, email)
 		return
 	}
 	uid, err := getUidByEmailFromDatabase(email)
@@ -92,7 +92,7 @@ func handleGetCaptcha(w http.ResponseWriter, r *http.Request) {
 	key := strings.TrimLeft(r.URL.Path, "/")
 	if key == "" {
 		//index page
-		WriteIndexPage(w, false, false)
+		WriteIndexPage(w, false, false, "")
 		return
 	}
 	WriteAccessEmailPage(w, key, false)

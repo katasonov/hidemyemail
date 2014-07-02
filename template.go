@@ -6,17 +6,18 @@ import (
 )
 
 type IndexPageValues struct {
-	EmailError bool;
-	CaptchaError bool;
+	EmailError bool
+	CaptchaError bool
+	Email string //contains email that should be inserted in case of error.
 }
 
 type AccessEmailPageValues struct {
-	Key string;
-	CaptchaError bool;
+	Key string
+	CaptchaError bool
 }
 
-func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool) {
-	writeHtmlWithValues(w, "index.html", &IndexPageValues{email_error, captcha_error})
+func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool, email string) {
+	writeHtmlWithValues(w, "index.html", &IndexPageValues{email_error, captcha_error, email})
 }
 
 func WriteAccessEmailPage(w http.ResponseWriter, uid string, captcha_error bool) {
