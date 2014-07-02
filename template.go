@@ -43,10 +43,10 @@ func WriteEmailNotFoundPage(w http.ResponseWriter, uid string) {
 func writeHtmlWithValues(w http.ResponseWriter, file string, data interface{}) {
 	tmpl := template.New("base")
 	var err error
-	if tmpl, err = tmpl.ParseFiles("html/base.html"); err != nil {
+	if tmpl, err = tmpl.ParseFiles(g_config.ResourcePath + "/html/base.html"); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	if tmpl, err = tmpl.ParseFiles("html/" + file); err != nil {
+	if tmpl, err = tmpl.ParseFiles(g_config.ResourcePath + "/html/" + file); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 	type Base struct {

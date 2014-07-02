@@ -23,7 +23,7 @@ func main() {
 
 	chttp.Handle("/", http.FileServer(http.Dir("./")))
 
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir(g_config.ResourcePath + "/images"))))
 	http.HandleFunc("/add",
 		func(w http.ResponseWriter, r *http.Request) {
 			handleAdd(w, r)

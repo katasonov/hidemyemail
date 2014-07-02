@@ -9,6 +9,7 @@ type Configuration struct {
 	Host    string
 	Port	string
 	DbConnectionString string
+	ResourcePath string
 }
 
 var g_config Configuration
