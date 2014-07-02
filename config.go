@@ -3,6 +3,9 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"path"
+	"path/filepath"
+	"log"
 )
 
 type Configuration struct {
@@ -15,7 +18,12 @@ type Configuration struct {
 var g_config Configuration
 
 func LoadConfig() error {
-	file, err := os.Open("hidemyemail.cfg")
+
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	file, err := os.Open(path.Join(dir, "hidemyemail.cfg"))
 	if err != nil {
 		return err
 	}
