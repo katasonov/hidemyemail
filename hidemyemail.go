@@ -21,8 +21,6 @@ func main() {
 
 	g_conn_string = g_config.DbConnectionString
 
-	chttp.Handle("/", http.FileServer(http.Dir("./")))
-
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir(g_config.ResourcePath + "/images"))))
 	http.HandleFunc("/add",
 		func(w http.ResponseWriter, r *http.Request) {
@@ -93,10 +91,6 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 
 func handleGetCaptcha(w http.ResponseWriter, r *http.Request) {
 
-	if (strings.Contains(r.URL.Path, ".")) {
-		chttp.ServeHTTP(w, r)
-		return
-	}
 	w.WriteHeader(http.StatusOK)
 	key := strings.TrimLeft(r.URL.Path, "/")
 	if key == "" {
