@@ -9,6 +9,8 @@ import (
 	"regexp"
 )
 
+var chttp = http.NewServeMux()
+
 func main() {
 
 	err := LoadConfig()
@@ -18,6 +20,8 @@ func main() {
 	}
 
 	g_conn_string = g_config.DbConnectionString
+
+	chttp.Handle("/", http.FileServer(http.Dir("./")))
 
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("images"))))
 	http.HandleFunc("/add",
@@ -88,6 +92,11 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGetCaptcha(w http.ResponseWriter, r *http.Request) {
+
+	if (strings.Contains(r.URL.Path, ".")) {
+		chttp.ServeHTTP(w, r)
+		return
+	}
 	w.WriteHeader(http.StatusOK)
 	key := strings.TrimLeft(r.URL.Path, "/")
 	if key == "" {
