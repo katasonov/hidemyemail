@@ -16,6 +16,10 @@ type AccessEmailPageValues struct {
 	CaptchaError bool
 }
 
+type EmailPageValues struct {
+	Email string
+}
+
 func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool, email string) {
 	writeHtmlWithValues(w, "index.html", &IndexPageValues{email_error, captcha_error, email})
 }
@@ -25,7 +29,7 @@ func WriteAccessEmailPage(w http.ResponseWriter, uid string, captcha_error bool)
 }
 
 func WriteEmailPage(w http.ResponseWriter, email string) {
-	writeHtmlWithValues(w, "email.html", &struct{ Email string }{email})
+	writeHtmlWithValues(w, "email.html", &EmailPageValues{email})
 }
 
 func WriteSecureLinkPage(w http.ResponseWriter, uid string) {

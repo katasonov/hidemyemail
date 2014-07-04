@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strings"
 	//"fmt"
-	"regexp"
 )
 
 var chttp = http.NewServeMux()
@@ -40,10 +39,13 @@ func main() {
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	email :=  r.FormValue("email")
-	matched, err := regexp.MatchString("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email)
-	if !matched {
-		WriteIndexPage(w, true, false, email)
-		return
+	//try to validate email
+	if !isEmail(email) {
+		//try to validate url
+		if !isUrl(email) {
+			WriteIndexPage(w, true, false, email)
+			return
+		}
 	}
 	ok, err := CheckCaptcha(r)
 	if err != nil {
@@ -86,6 +88,7 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 		WriteEmailNotFoundPage(w, uid)
 		return
 	}
+
 	WriteEmailPage(w, email)
 }
 

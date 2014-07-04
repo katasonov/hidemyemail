@@ -1,6 +1,6 @@
 {{define "content"}}
 <p>Чтобы получить доступ к E-mail, пожалуйста, введите защитный код с картинки.</p>
-{{if .CaptchaError}}<p class="error">Чтобы получить доступ к E-mail, пожалуйста, введите защитный код с картинки.</p>{{end}}
+{{if .CaptchaError}}<p class="error">Введите код правильно</p>{{end}}
 <div style="display:inline-block">
     <form action =  "get" method="GET">
         <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LdUtvUSAAAAAFHAD6cT4iBwBh_8HPHXYGb2hgQf">
