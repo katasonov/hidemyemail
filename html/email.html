@@ -1,6 +1,10 @@
 {{define "content"}}
 <form id="form" action = "add" method="GET">
-    <input id="input" type="text" value="{{.Email}}"/><br/>
+    <div id="CtrlCHint" class="GJUPD0RBBP GJUPD0RBDJ" style="display: none;">
+        <span class="GJUPD0RBAP">Нажмите CTRL-C, чтобы скопировать</span>
+        <span class="GJUPD0RBPO"></span>
+    </div>
+    <input id="input" readonly="readonly" type="text" value="{{.Email}}" onclick='SelectText(this);var pos = $(this).position();var width = $(this).outerWidth();var elWidth=$("#CtrlCHint").width();$("#CtrlCHint").css({position: "absolute", top: (pos.top-29) + "px", left: (pos.left + width/2 - elWidth/2) + "px"}).show();'/><br/>
 </form>
 <p class="descp">Поздравляем! Вы ввели правильный код. Данная ссылка была защищена нашим сервисом от ботов. Теперь вы можете её скопировать и использовать.</p>
 {{end}}

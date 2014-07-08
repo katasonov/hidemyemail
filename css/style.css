@@ -148,3 +148,40 @@ p, li {
     font: bold 0.5em Arial,Helvetica,sans-serif;
     padding: 0.3em;
 }
+
+.GJUPD0RBBP {
+    background-color: rgba(255, 243, 21, 0.5);
+    left: 80px;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    position: absolute;
+    text-align: center;
+    top: -28px;
+    width: 300px;
+    z-index: 99;
+}
+
+.GJUPD0RBDJ {
+    -moz-user-select: none;
+}
+
+
+.GJUPD0RBAP {
+    color: #0;
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 29px;
+    text-align: center;
+}
+
+
+.GJUPD0RBPO {
+    border-color: #2d2d2d transparent transparent;
+    border-style: solid solid none;
+    border-width: 5px 5px medium;
+    bottom: -5px;
+    left: 65px;
+    margin: 0 0 0 -5px;
+    outline: medium none;
+    position: absolute;
+}

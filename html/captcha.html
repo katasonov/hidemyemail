@@ -14,7 +14,7 @@
         </noscript>
         </div>
         <input type="hidden" name="email_uid" value="{{.Key}}">
-        {{if .CaptchaError}}<p class="error">Введите код правильно</p>{{end}}
+        {{if .CaptchaError}}<p class="error">Введите код правильно</p>{{else}}<br/>{{end}}
         <input id="click" type="submit" type="submit" tabindex="2" value="Отправить">
     </form>
 </div>
