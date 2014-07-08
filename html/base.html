@@ -1,109 +1,21 @@
 {{define "base"}}
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Защита вашего E-mail с помощью Captcha для публикации на форумах, блогах, чатах, досках объявлений и других публичных местах</title>
-    <style type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Защита e-mail адресов и URL от спамеров и копирастеров с помощью капчи для размещения ссылок на форумах, блогах, чатах, досках объявлений и других публичных интернет площадках!</title>
+    <meta name="Description" content="Защита мэйлов и ссылок от спам-ботов." />
+    <meta name="Keywords"
+          content="antibot, spam protection, защита от копирастеров, защита e-mail, спам email, spam email, spam-bot, copypast protection, защита, копипастер" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <script type="text/javascript" src="http://yandex.st/jquery/1.4.4/jquery.min.js"></script>
 
-        body {
-            font-family: arial,sans-serif;
-            font-size: 12px;
-        }
+    <script type="text/javascript" src="http://yandex.st/share/share.js" charset="utf-8"></script>
 
-		div.ext-box { display: table; width:100%;}
-		div.int-box { display: table-cell; vertical-align: middle; margin:0; padding:0;}
-
-        a.logo-text {
-            text-decoration: none;
-            color:#c8c8c8;
-        }
-
-		input {
-		    background: none repeat scroll 0 0 #fff;
-		    border: 1px solid #d9d9d9;
-		    border-radius: 0;
-		    box-shadow: none;
-		    box-sizing: border-box;
-		    //display: block;
-		    font-family: verdana,sans-serif;
-		    font-size: 16px;
-		    line-height: 28px;
-		    margin: 0;
-		    outline: medium none;
-		    overflow: hidden;
-		    padding: 5px;
-		    text-shadow: none;
-		    width: 40%;
-		}
-
-		p {
-		    color: #F2D324;
-		    font-family: arial,sans-serif;
-		    font-size: 18px;
-		    font-weight: bold;			
-		}
-
-        p.error {
-            color: #C10030;
-            font-family: arial,sans-serif;
-            font-size: 14px;
-            font-weight: normal;
-        }
-
-        a {
-            font-family: verdana,sans-serif;
-            font-size: 16px;
-        }
-
-        a.contact-mail {
-            font-size: 12px;
-        }
-
-		button {
-
-		    background-color: #eee !important;
-		    background-image: -moz-linear-gradient(center top , #eee, #e1e1e1);
-		    background-repeat: repeat-x;
-		    border-color: #d9d8d8 #cccbcb #aeaeae;
-		    border-image: none;
-		    border-radius: 6px;
-		    border-style: solid;
-		    border-width: 1px;
-		    box-shadow: 0 1px 0 #fff inset;
-		    color: #282828 !important;
-		    cursor: pointer;
-		    display: inline-block;
-		    font-family: arial,sans-serif;
-		    font-size: 16px;
-		    font-weight: normal;
-		    height: 32px;
-		    line-height: 26px;
-		    margin: 0;
-		    padding: 0 10px;
-		    margin-top: 8px;
-		    text-decoration: none;
-		    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-		    transition-duration: 0.2s;
-		    vertical-align: middle;
-		}
-
-        a.footer {
-            margin: 0pt;
-            padding: 0pt;
-            font-size: 			  110%;
-            font-family:		  Comic Sans, Comic Sans MS, cursive;
-            white-space: nowrap;
-            color:black;
-            background-color: transparent;
-
-            font-family: 'Arial';
-            font-size: 12px;
-            white-space: nowrap;
-        }
-    </style>
 </head>
-<body style="margin:0;padding:0;background-color:#858585;height:100%">
+
+<body>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -115,30 +27,23 @@
 
     </script>
 
-	<div class="ext-box" style="background-color: #272822;">
-		<div class="int-box" style="height:38px;width:150px;">
-			<a href="/"><img src="images/logo.png" style="padding-left:8px;"/></a>
-		</div>
-		<div class="int-box" style="padding-left:14px">
-			<a href="/" class="logo-text">Надежная защита E-mail и ссылок от Спам-ботов</a>
-		</div>
-		<div style="clear:both;"></div>
 
-	</div>
-	<div class="ext-box" style="padding-top:3%;">
-		<div class="int-box" style="text-align:center;">
-			{{template "content" .Content}}
-		</div>
-	</div>
+    <div id="head">
+        <div id="header">
+            <h1><a href="/">Antibot.me</a></h1>
+            <h2>Серьёзная защита E-mail и URL от спам-ботов и копираст-ботов</h2>
+        </div>
+    </div>
+    <div id="wrap">
 
-    <div style="position: fixed; bottom: 0px; left: 0px; background-image: url('images/footer_bg.jpg');
-top: auto; right: auto; width: 100%;
-height: 15px;text-align:center;  font-family: 'Arial';
-font-size: 12px;
-  white-space: nowrap;">
-        2014 © <a href="http://antibot.me/G3Mntv0k" class="footer">Александр Катасонов</a> | Все права защищены
+    <div id="content">
+        <div id="message" class="flash"></div>
+        {{template "content" .Content}}
     </div>
 
+        <div id="footer">Версия 1, © 2014 «<a href="http://antibot.me/G3Mntv0k">Alexander Katasonov</a>»</div>
+
+    </div>
 </body>
 </html>
 {{end}}

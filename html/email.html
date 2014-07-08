@@ -1,4 +1,6 @@
 {{define "content"}}
-    <p>Защищенный E-mail или ссылка</p>
-    <input type="text" value="{{.Email}}"/><br/>
+<form id="form" action = "add" method="GET">
+    <input id="input" type="text" value="{{.Email}}"/><br/>
+</form>
+<p class="descp">Поздравляем! Вы ввели правильный код. Данная ссылка была защищена нашим сервисом от ботов. Теперь вы можете её скопировать и использовать.</p>
 {{end}}

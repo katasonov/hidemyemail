@@ -1,8 +1,8 @@
 {{define "content"}}
-<p>Введите код с картинки для доступа к защищенным E-mail или ссылке</p>
-{{if .CaptchaError}}<p class="error">Введите код правильно</p>{{end}}
-<div style="display:inline-block">
-    <form action =  "get" method="GET">
+<div style="text-align:center;">
+    <form id="form" action =  "get" method="GET">
+        <p>Для доступа введите код с картинки</p>
+        <div style="display:inline-block">
         <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LdUtvUSAAAAAFHAD6cT4iBwBh_8HPHXYGb2hgQf">
         </script>
         <noscript>
@@ -12,8 +12,12 @@
             <textarea name="recaptcha_challenge_field" rows="3" cols="40"> </textarea>
             <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
         </noscript>
+        </div>
         <input type="hidden" name="email_uid" value="{{.Key}}">
-        <button type="submit">Отправить</button>
+        {{if .CaptchaError}}<p class="error">Введите код правильно</p>{{end}}
+        <input id="click" type="submit" type="submit" tabindex="2" value="Отправить">
     </form>
 </div>
+<p class="descp">Ссылка или e-mail адрес, к которым вы желаете получить доступ, была защищена нашим сервисом от спам-ботов. Просим вас ввести защитный код, чтобы подтвердить, что вы не бот.</p>
+
 {{end}}

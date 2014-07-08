@@ -17,15 +17,6 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	ok, err := CheckCaptcha(r)
-	if err != nil {
-		WriteIndexPage(w, false, true, email)
-		return
-	}
-	if !ok {
-		WriteIndexPage(w, false, true, email)
-		return
-	}
 	uid, err := getUidByEmailFromDatabase(email)
 	if err == nil {
 		WriteSecureLinkPage(w, uid)

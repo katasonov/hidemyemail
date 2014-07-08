@@ -1,4 +1,9 @@
 {{define "content"}}
-    <p>Cсылка доступа, защищенная от спам-ботов</p>
-    <input  type="url" name="access_url" value="{{.Host}}/{{.Key}}"/>
+<form id="form" action = "add" method="GET">
+    <input  id="input" type="text" name="access_url" value="{{.Host}}/{{.Key}}"  tabindex="1" size="40"/>
+    <div id="divider">
+        <a href="/">Защитить еще один E-mail или ссылку</a>
+    </div>
+</form>
+<p class="descp">Защитная ссылка доступа готова, теперь вы можете скопировать и размещать адрес на любых форумах, блогах и публичных интернет площадках, не опасаясь спам-ботов и копираст-ботов. Чтобы поместить его в буфер обмена используйте системную функцию копирования текста. </p>
 {{end}}
