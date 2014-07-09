@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"html/template"
+	"github.com/dchest/captcha"
 )
 
 type IndexPageValues struct {
@@ -14,6 +15,7 @@ type IndexPageValues struct {
 type AccessEmailPageValues struct {
 	Key string
 	CaptchaError bool
+	CaptchaId string
 }
 
 type EmailPageValues struct {
@@ -26,7 +28,7 @@ func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool,
 }
 
 func WriteAccessEmailPage(w http.ResponseWriter, uid string, captcha_error bool) {
-	writeHtmlWithValues(w, "captcha.html", &AccessEmailPageValues{uid, captcha_error})
+	writeHtmlWithValues(w, "captcha.html", &AccessEmailPageValues{uid, captcha_error, captcha.New()})
 }
 
 func WriteEmailPage(w http.ResponseWriter, email string) {

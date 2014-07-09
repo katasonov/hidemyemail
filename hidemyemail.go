@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"github.com/dchest/captcha"
 )
 
 var chttp = http.NewServeMux()
@@ -17,6 +18,7 @@ func main() {
 
 	g_conn_string = g_config.DbConnectionString
 
+	http.Handle("/captcha/", captcha.Server(captcha.StdWidth, captcha.StdHeight))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir(g_config.ResourcePath + "/images"))))
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir(g_config.ResourcePath + "/css"))))
 	http.HandleFunc("/add",

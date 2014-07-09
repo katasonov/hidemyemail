@@ -2,20 +2,22 @@
 <div style="text-align:center;">
     <form id="form" action =  "get" method="GET">
         <p>Введите код с картинки</p>
-        <div style="display:inline-block">
-        <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LdUtvUSAAAAAFHAD6cT4iBwBh_8HPHXYGb2hgQf">
-        </script>
-        <noscript>
-            <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LdUtvUSAAAAAFHAD6cT4iBwBh_8HPHXYGb2hgQf" height="300" width="500" frameborder="0">
-            </iframe>
-            <br>
-            <textarea name="recaptcha_challenge_field" rows="3" cols="40"> </textarea>
-            <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
-        </noscript>
-        </div>
-        <input type="hidden" name="email_uid" value="{{.Key}}">
-        {{if .CaptchaError}}<p class="error">Введите код правильно</p>{{else}}<br/>{{end}}
+        <input id="input" name=captchaSolution placeholder="Код">
+        <center>
+        <table>
+                <td>
+                    <img id="image" src="/captcha/{{.CaptchaId}}.png" alt="Защитный код">
+                </td>
+                <td>
+                    <a href="#" onclick="reload()"><img src="/images/reload.jpg" alt="Перезагрузить картинку"></a>
+                </td>
+            </tr>
+         </table>
+        </center>
+        {{if .CaptchaError}}<p class="error">Введите код правильно</p>{{end}}
         <input id="click" type="submit" type="submit" tabindex="2" value="Отправить">
+        <input type="hidden" name="email_uid" value="{{.Key}}">
+        <input type=hidden name=captchaId value="{{.CaptchaId}}">
     </form>
 </div>
 <p class="descp">Запрашиваемая ссылка или e-mail адрес, к которому вы желаете получить доступ, защищен нашим сервисом от спам-ботов. Просим вас ввести защитный код с картинки, чтобы подтвердить, что вы не бот.</p>

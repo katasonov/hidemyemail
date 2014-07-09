@@ -36,11 +36,7 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 func handleGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	uid := r.FormValue("email_uid")
-	ok, err := CheckCaptcha(r)
-	if err != nil {
-		WriteAccessEmailPage(w, uid, true)
-		return
-	}
+	ok := CheckCaptcha(r)
 	if !ok {
 		WriteAccessEmailPage(w, uid, true)
 		return
