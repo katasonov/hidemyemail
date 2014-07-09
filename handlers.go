@@ -13,8 +13,7 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 	if !isEmail(email) {
 		//try to validate url
 		if !isUrl(email) {
-			WriteIndexPage(w, true, false, email)
-			return
+			email = "http://" + email
 		}
 	}
 	uid, err := getUidByEmailFromDatabase(email)
@@ -50,7 +49,11 @@ func handleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	WriteEmailPage(w, email)
+	if !isEmail(email) {
+		WriteUrlPage(w, email)
+	} else {
+		WriteEmailPage(w, email)
+	}
 }
 
 func handleGetCaptcha(w http.ResponseWriter, r *http.Request) {

@@ -13,9 +13,6 @@ func isEmail(v string)bool {
 }
 
 func isUrl(v string)bool{
-	matched, _ := regexp.MatchString("\b(https?|ftp|file)://)?[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", v)
-	if !matched {
-		return false
-	}
-	return true
+	matched, _ := regexp.MatchString("^((https?|ftp|file)://*.)", v)
+	return matched
 }
