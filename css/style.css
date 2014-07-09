@@ -133,14 +133,17 @@ p, li {
     padding: 0.5em;
     text-align: center;
 }
+
 #bottom {
     font-size: 11px;
     padding: 10px 0 0;
 }
+
 #divider {
     clear: both;
     font: bold 0.9em Arial,Helvetica,sans-serif;
     text-align: center;
+    padding-top: 12px;
 }
 .error {
     background-color: red;
