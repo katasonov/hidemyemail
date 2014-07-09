@@ -7,8 +7,12 @@
     {{if .IsEmail}}
     <input id="input" readonly="readonly" type="text" value="{{.Email}}" onclick='SelectText(this);var pos = $(this).position();var width = $(this).outerWidth();var elWidth=$("#CtrlCHint").width();$("#CtrlCHint").css({position: "absolute", top: (pos.top-29) + "px", left: (pos.left + width/2 - elWidth/2) + "px"}).show();'/><br/>
     {{else}}
-    <a href="{{.Email}}">{{.Email}}</a> <br/>
+    --->&nbsp;&nbsp; <a id="turl" href="{{.Email}}">{{.Email}}</a>&nbsp;&nbsp; <--- <br/>
     {{end}}
 </form>
-<p class="descp">Поздравляем! Вы ввели правильный код. Данная ссылка была защищена нашим сервисом от ботов. Теперь вы можете её скопировать и использовать.</p>
+{{if .IsEmail}}
+<p class="descp">Поздравляем! Вы ввели правильный код. Данный Email был защищен нашим сервисом от ботов. Теперь вы можете его скопировать кликнув на нем.</p>
+{{else}}
+<p class="descp">Поздравляем! Вы ввели правильный код. Данная ссылка была защищена нашим сервисом от ботов. </p>
+{{end}}
 {{end}}

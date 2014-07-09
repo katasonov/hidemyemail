@@ -149,6 +149,15 @@ p, li {
     padding: 0.3em;
 }
 
+#turl {
+    color: blue;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+
 .GJUPD0RBBP {
     background-color: rgba(255, 243, 21, 0.5);
     left: 80px;
