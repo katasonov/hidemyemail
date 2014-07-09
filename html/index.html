@@ -2,6 +2,10 @@
     <form id="form" action = "add" method="GET">
         <input id="input" name="email" type="text" placeholder="Ваш email или ссылка" value="{{.Email}}" tabindex="1" size="40"/><br/>
         {{if .EmailError}}<p class="error">* Введите корректный e-mail адрес или ссылку</p>{{end}}
-        <input id="click" type="submit" type="submit" tabindex="2" value="Отправить">
+        <input id="click" type="submit" type="submit" tabindex="2" value="Защитить">
     </form>
+    <p class="descp">Часто приходится оставлять свой email на форумах, блогах и других сайтах. Это приводит к тому, что мэйл попадает к спамерам и индексируется поисковиками. Antibot.me решает эту проблему скрывая ваш email от лишних глаз и ботов под специальной ссылкой с капча-кодом. </p>
+    <p class="descp">Для вашего email или любого URL сервис сгенерирует постоянную короткую ссылку доступа. Переходя по ней необходимо ввести стандартный капча-код для доступа к вашему email/ссылке.</p>
+    <p class="descp">Её вы можете размещать в открытом виде на форумах, блогах, в чатах и т.д. не опасаясь спам-ботов. </p>
+    <p class="descp">Ссылка доступа не имеет ограничений и сохраняется навсегда. </p>
 {{end}}
