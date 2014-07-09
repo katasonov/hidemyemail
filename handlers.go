@@ -9,6 +9,8 @@ import (
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	email :=  r.FormValue("email")
+	email = strings.TrimSpace(email)
+	email = strings.ToLower(email)
 	//try to validate email
 	if !isEmail(email) {
 		//try to validate url
