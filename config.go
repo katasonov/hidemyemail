@@ -11,6 +11,7 @@ import (
 type Configuration struct {
 	Host    string
 	Port	string
+	ShowPort int
 	DbConnectionString string
 	ResourcePath string
 }

@@ -39,7 +39,7 @@ func WriteUrlPage(w http.ResponseWriter, email string) {
 
 func WriteSecureLinkPage(w http.ResponseWriter, uid string) {
 	host := "http://" + g_config.Host
-	if g_config.Port != "80" {
+	if g_config.Port != "80" && g_config.ShowPort != 0 {
 		host = host + ":" + g_config.Port
 	}
 	writeHtmlWithValues(w, "url.html", &struct{ Host string; Key string }{host, uid})
