@@ -11,13 +11,6 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 	email :=  r.FormValue("email")
 	email = strings.TrimSpace(email)
 	email = strings.ToLower(email)
-	//try to validate email
-	if !isEmail(email) {
-		//try to validate url
-		if !isUrl(email) {
-			email = "http://" + email
-		}
-	}
 	uid, err := getUidByEmailFromDatabase(email)
 	if err == nil {
 		WriteSecureLinkPage(w, uid)

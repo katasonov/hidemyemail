@@ -16,3 +16,7 @@ func isUrl(v string)bool{
 	matched, _ := regexp.MatchString("^((https?|ftp|file)://*.)", v)
 	return matched
 }
+
+func urlHasPrefix(v string)bool{
+	return isUrl(v)
+}

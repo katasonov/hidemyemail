@@ -7,7 +7,7 @@
     {{if .IsEmail}}
     <input id="input" readonly="readonly" type="text" value="{{.Email}}" onclick='SelectTextAndShowHint(this);'/><br/>
     {{else}}
-    --->&nbsp;&nbsp; <a id="turl" href="{{.Email}}">{{.Email}}</a>&nbsp;&nbsp; <--- <br/>
+    --->&nbsp;&nbsp; <a id="turl" href="{{.EmailRef}}">{{.Email}}</a>&nbsp;&nbsp; <--- <br/>
     {{end}}
 </form>
 {{if .IsEmail}}

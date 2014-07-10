@@ -21,6 +21,7 @@ type AccessEmailPageValues struct {
 type EmailPageValues struct {
 	Email string
 	IsEmail bool
+	EmailRef string
 }
 
 func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool, email string) {
@@ -36,7 +37,11 @@ func WriteEmailPage(w http.ResponseWriter, email string) {
 }
 
 func WriteUrlPage(w http.ResponseWriter, email string) {
-	writeHtmlWithValues(w, "email.html", &EmailPageValues{Email: email, IsEmail: false})
+	ref := email
+	if !urlHasPrefix(email) {
+		ref = "http://" + ref
+	}
+	writeHtmlWithValues(w, "email.html", &EmailPageValues{Email: email, IsEmail: false, EmailRef: ref})
 }
 
 func WriteSecureLinkPage(w http.ResponseWriter, uid string) {
