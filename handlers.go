@@ -9,15 +9,14 @@ import (
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	email :=  r.FormValue("email")
-	email = strings.TrimSpace(email)
-	email = strings.ToLower(email)
-	uid, err := getUidByEmailFromDatabase(email)
-	if err == nil {
-		WriteSecureLinkPage(w, uid)
+	if len(email) > 127 {
+		WriteIndexPageWithInvalidEmailLen(w, email)
 		return
 	}
-	uid = NewLen(8)
-	err = addEmailToDatabase(uid, email)
+	email = strings.TrimSpace(email)
+	email = strings.ToLower(email)
+	uid := NewLen(8)
+	err := addEmailToDatabase(uid, email)
 	if err != nil {
 		w.Write([]byte("Db Error occurred: " + err.Error()))
 		return

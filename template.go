@@ -9,6 +9,7 @@ import (
 type IndexPageValues struct {
 	EmailError bool
 	CaptchaError bool
+	LengthError bool
 	Email string //contains email that should be inserted in case of error.
 }
 
@@ -25,8 +26,13 @@ type EmailPageValues struct {
 }
 
 func WriteIndexPage(w http.ResponseWriter, email_error bool, captcha_error bool, email string) {
-	writeHtmlWithValues(w, "index.html", &IndexPageValues{email_error, captcha_error, email})
+	writeHtmlWithValues(w, "index.html", &IndexPageValues{Email: email})
 }
+
+func WriteIndexPageWithInvalidEmailLen(w http.ResponseWriter, email string) {
+	writeHtmlWithValues(w, "index.html", &IndexPageValues{Email: email, LengthError: true})
+}
+
 
 func WriteAccessEmailPage(w http.ResponseWriter, uid string, captcha_error bool) {
 	writeHtmlWithValues(w, "captcha.html", &AccessEmailPageValues{uid, captcha_error, captcha.New()})

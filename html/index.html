@@ -2,6 +2,7 @@
     <form id="form" action = "add" method="GET">
         <input id="input" name="email" type="text" placeholder="Ваш email или ссылка" value="{{.Email}}" tabindex="1" size="40"/><br/>
         {{if .EmailError}}<p class="error">* Введите корректный e-mail адрес или ссылку</p>{{end}}
+        {{if .LengthError}}<p class="error">* Слишком длинная строка. Можно не более 127 символов.</p>{{end}}
         <input id="click" type="submit" type="submit" tabindex="2" value="Защитить">
     </form>
     <p class="descp">Часто приходится оставлять свой email или ссылки на форумах, блогах и других сайтах. Это приводит к тому, что они попадают к спамерам и индексируются поисковиками типа Yandex и Google. Сервис Antibot.me решает эту проблему скрывая ваш email/ссылку от посторонних глаз и ботов под специальной короткой ссылкой с капча-кодом. </p>
