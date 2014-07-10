@@ -9,7 +9,7 @@ import (
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	email :=  r.FormValue("email")
-	if len(email) > 127 {
+	if len(email) < 4 || len(email) > 127 {
 		WriteIndexPageWithInvalidEmailLen(w, email)
 		return
 	}
