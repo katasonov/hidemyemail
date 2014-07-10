@@ -42,7 +42,10 @@
                 e.src = src + "?" + q
             }
             function SelectTextAndShowHint(field){
-                field.focus();field.select();
+                field.focus();
+                //field.setSelectionRange(0, 9999);
+                field.selectionStart = 0
+                field.selectionEnd = 999
                 var pos = $(field).position();
                 var width = $(field).outerWidth();
                 var elWidth=$("#CtrlCHint").width();
