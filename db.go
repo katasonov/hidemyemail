@@ -14,7 +14,7 @@ func addEmailToDatabase(uid string, email string) error {
 	}
 	defer db.Close()
 	// Prepare statement for inserting data
-	stmtIns, err := db.Prepare("INSERT INTO email VALUES( ?, ? )") // ? = placeholder
+	stmtIns, err := db.Prepare("INSERT INTO email VALUES( ?, ?, now() )") // ? = placeholder
 	if err != nil {
 		return err
 	}
