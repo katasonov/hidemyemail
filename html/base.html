@@ -28,19 +28,30 @@
     </script>
 
     <script type="text/javascript">
-        function setSrcQuery(e, q) {
-            var src = e.src;
-            var p = src.indexOf('?');
-            if (p >= 0) {
-                src = src.substr(0, p);
+            $( window ).resize(function() {
+                if ($("#CtrlCHint").is(":visible")) {
+                    $("#CtrlCHint").hide();
+                }
+            });
+            function setSrcQuery(e, q) {
+                var src = e.src;
+                var p = src.indexOf('?');
+                if (p >= 0) {
+                    src = src.substr(0, p);
+                }
+                e.src = src + "?" + q
             }
-            e.src = src + "?" + q
-        }
-        function SelectText(field){field.focus();field.select();}
-        function reload() {
-            setSrcQuery(document.getElementById('image'), "reload=" + (new Date()).getTime());
-            return false;
-        }
+            function SelectTextAndShowHint(field){
+                field.focus();field.select();
+                var pos = $(field).position();
+                var width = $(field).outerWidth();
+                var elWidth=$("#CtrlCHint").width();
+                $("#CtrlCHint").css({position: "absolute", top: (pos.top-29) + "px", left: (pos.left + width/2 - elWidth/2) + "px"}).show();
+            }
+            function reload() {
+                setSrcQuery(document.getElementById('image'), "reload=" + (new Date()).getTime());
+                return false;
+            }
     </script>
 
 

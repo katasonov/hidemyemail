@@ -5,7 +5,7 @@
         <span class="GJUPD0RBPO"></span>
     </div>
     {{if .IsEmail}}
-    <input id="input" readonly="readonly" type="text" value="{{.Email}}" onclick='SelectText(this);var pos = $(this).position();var width = $(this).outerWidth();var elWidth=$("#CtrlCHint").width();$("#CtrlCHint").css({position: "absolute", top: (pos.top-29) + "px", left: (pos.left + width/2 - elWidth/2) + "px"}).show();'/><br/>
+    <input id="input" readonly="readonly" type="text" value="{{.Email}}" onclick='SelectTextAndShowHint(this);'/><br/>
     {{else}}
     --->&nbsp;&nbsp; <a id="turl" href="{{.Email}}">{{.Email}}</a>&nbsp;&nbsp; <--- <br/>
     {{end}}

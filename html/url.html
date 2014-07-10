@@ -4,7 +4,7 @@
         <span class="GJUPD0RBAP">Нажмите CTRL-C, чтобы скопировать</span>
         <span class="GJUPD0RBPO"></span>
     </div>
-    <input  id="input" type="text" readonly="readonly" name="access_url" value="{{.Host}}/{{.Key}}"  tabindex="1" size="40" onclick='SelectText(this);var pos = $(this).position();var width = $(this).outerWidth();var elWidth=$("#CtrlCHint").width();$("#CtrlCHint").css({position: "absolute", top: (pos.top-29) + "px", left: (pos.left + width/2 - elWidth/2) + "px"}).show();'/>
+    <input  id="input" type="text" readonly="readonly" name="access_url" value="{{.Host}}/{{.Key}}"  tabindex="1" size="40" onclick='SelectTextAndShowHint(this);'/>
     <br/>
     <div id="divider">
         <a href="/">Защитить еще один E-mail или ссылку</a>
