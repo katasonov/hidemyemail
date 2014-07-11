@@ -9,11 +9,11 @@ import (
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	email :=  r.FormValue("email")
+	email = strings.TrimSpace(email)
 	if len(email) < 4 || len(email) > 127 {
 		WriteIndexPageWithInvalidEmailLen(w, email)
 		return
 	}
-	email = strings.TrimSpace(email)
 	email = strings.ToLower(email)
 	uid := NewLen(8)
 	err := addEmailToDatabase(uid, email)
